@@ -35,6 +35,17 @@ class CustomerController extends AbstractController
         return new JsonResponse($data, Response::HTTP_OK);
     }
     /**
+     * @Route("/customer/{id}", name="update_customer", methods={"PUT"})
+     */
+    public function update($id, Request $request): JsonResponse
+    {
+        $customer = $this->customerRepository->findOneBy(['id' => $id]);
+
+        $updateCustomer = $this->customerRepository->updateCustomer($customer,$request);
+
+        return new JsonResponse($updateCustomer->toArray() , Response::HTTP_OK);
+    }
+    /**
      * @Route("/add_customer", name="add_customer", methods={"POST"})
      */
     public function add(Request $request): JsonResponse

@@ -37,6 +37,22 @@ class CustomerRepository extends ServiceEntityRepository
         $this->manager->persist($newCustomer);
         $this->manager->flush();
     }
+    public function updateCustomer(Customer $customer, $request): Customer
+    {
+        $firstName = $request->request->get('firstName');
+        empty($firstName)? true : $customer->setFirstName($firstName);
+        $lastName = $request->request->get('lastName');
+        empty($lastName)? null : $customer->setLastName($lastName);
+        $email = $request->request->get('email');
+        empty($email)? null : $customer->setEmail($email);
+        $phoneNumber = $request->request->get('phoneNumber');
+        empty($phoneNumber)? null : $customer->setPhoneNumber($phoneNumber);
+        $this->manager->persist($customer);
+        $this->manager->flush();
+
+        return $customer;
+    }
+
     // /**
     //  * @return Customer[] Returns an array of Customer objects
     //  */

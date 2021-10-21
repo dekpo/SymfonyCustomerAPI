@@ -89,4 +89,14 @@ class Customer
 
         return $this;
     }
+
+    public function toArray(){
+        return [
+            'id' => $this->getId(),
+            'firstName' => $this->getFirstName(),
+            'lastName' => $this->getLastName(),
+            'email' => $this->getEmail(),
+            'phoneNumber' => $this->getPhoneNumber()
+        ];
+    }
 }
