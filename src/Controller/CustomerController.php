@@ -46,6 +46,15 @@ class CustomerController extends AbstractController
         return new JsonResponse($updateCustomer->toArray() , Response::HTTP_OK);
     }
     /**
+     * @Route("/customer/{id}", name="delete_customer", methods={"DELETE"})
+     */
+    public function delete($id): JsonResponse
+    {
+        $customer = $this->customerRepository->findOneBy(['id' => $id]);
+        $this->customerRepository->removeCustomer($customer);
+        return new JsonResponse(['status'=>'Customer deleted !'],Response::HTTP_OK);
+    }
+    /**
      * @Route("/add_customer", name="add_customer", methods={"POST"})
      */
     public function add(Request $request): JsonResponse

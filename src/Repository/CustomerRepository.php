@@ -53,6 +53,11 @@ class CustomerRepository extends ServiceEntityRepository
         return $customer;
     }
 
+    public function removeCustomer(Customer $customer){
+        $this->manager->remove($customer);
+        $this->manager->flush();
+    }
+
     // /**
     //  * @return Customer[] Returns an array of Customer objects
     //  */
