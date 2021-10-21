@@ -18,6 +18,23 @@ class CustomerController extends AbstractController
       $this->customerRepository = $customerRepository;  
     }
     /**
+     * @Route("/customer/{id}", name="get_one_customer", methods={"GET"})
+     */
+    public function getOneCustomer($id): JsonResponse
+    {
+        $customer = $this->customerRepository->findOneBy(['id' => $id]);
+
+        $data = [
+            'id' => $customer->getId(),
+            'firsName' => $customer->getFirstName(),
+            'lastName' => $customer->getLastName(),
+            'email' => $customer->getEmail(),
+            'phoneNumber' => $customer->getPhoneNumber()
+        ];
+
+        return new JsonResponse($data, Response::HTTP_OK);
+    }
+    /**
      * @Route("/add_customer", name="add_customer", methods={"POST"})
      */
     public function add(Request $request): JsonResponse
@@ -35,6 +52,7 @@ class CustomerController extends AbstractController
 
         return new JsonResponse(['status'=> 'Add Customer OK!'],Response::HTTP_CREATED);
     }
+
     /**
      * @Route("/customers", name="customers")
      */
